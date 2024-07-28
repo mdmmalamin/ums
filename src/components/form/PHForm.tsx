@@ -7,17 +7,34 @@ import {
   useForm,
 } from "react-hook-form";
 
+type TFormConfig = {
+  defaultValues?: Record<string, any>;
+  resolver?: any;
+};
+
 type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
-  defaultValues?: { id: string; password: string };
-};
+} & TFormConfig;
 
-const PHForm = ({ onSubmit, children, defaultValues }: TFormProps) => {
-  const methods = useForm({ defaultValues });
+const PHForm = ({
+  onSubmit,
+  children,
+  defaultValues,
+  resolver,
+}: TFormProps) => {
+  const formConfig: TFormConfig = {};
+
+  defaultValues && (formConfig["defaultValues"] = defaultValues);
+  resolver && (formConfig["resolver"] = resolver);
+
+  const methods = useForm(formConfig);
+
   return (
     <FormProvider {...methods}>
-      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>{children}</Form>
+      <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>
+        {children}
+      </Form>
     </FormProvider>
   );
 };
