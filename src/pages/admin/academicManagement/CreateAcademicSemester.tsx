@@ -6,16 +6,24 @@ import { semesterOptions } from "../../../constants/semester";
 import { monthOptions } from "../../../constants/global";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { academicSemesterSchema } from "../../../schemas/academicManagement.schema";
+import { useCreateAcademicSemesterMutation } from "../../../redux/features/admin/academicManagement.api";
+import { toast } from "sonner";
+import { TResponse } from "../../../types/global.type";
+import { yearOptions } from "../../../utils/yearOptions";
 
-const currentYear = new Date().getFullYear();
-const yearOptions = Array.from(Array(5).keys()).map((_) => ({
-  value: String(_ + currentYear),
-  label: String(_ + currentYear),
-}));
-// console.log(yearOptions, currentYear);
+// const currentYear = new Date().getFullYear();
+// const yearOptions = Array.from(Array(5).keys()).map((_) => ({
+//   value: String(_ + currentYear),
+//   label: String(_ + currentYear),
+// }));
+// // console.log(yearOptions, currentYear);
 
 const CreateAcademicSemester = () => {
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const [CreateAcademicSemester] = useCreateAcademicSemesterMutation();
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Creating...");
+
     const name = semesterOptions[+(data?.name - 1)]?.label;
 
     const semesterData = {
@@ -26,7 +34,24 @@ const CreateAcademicSemester = () => {
       endMonth: data?.endMonth,
     };
 
-    console.log(semesterData);
+    try {
+      const res = (await CreateAcademicSemester(semesterData)) as TResponse;
+
+      (res?.error &&
+        toast.error(res?.error?.data?.message, {
+          id: toastId,
+          duration: 2000,
+        })) ||
+        toast.success(res?.data?.message, {
+          id: toastId,
+          duration: 2000,
+        });
+    } catch (error) {
+      toast.error("Something went wrong in when you Create Semester!", {
+        id: toastId,
+        duration: 2000,
+      });
+    }
   };
 
   return (

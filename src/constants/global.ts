@@ -17,5 +17,3 @@ export const monthOptions = monthNames.map((item) => ({
   value: item,
   label: item,
 }));
-
-console.log(monthOptions);
