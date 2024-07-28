@@ -50,6 +50,8 @@ const Sidebar = () => {
       onCollapse={(collapsed, type) => {
         console.log(collapsed, type);
       }}
+      width={280}
+      style={{ height: "100vh", position: "sticky", left: 0, top: 0 }}
     >
       <div
         style={{
@@ -60,7 +62,7 @@ const Sidebar = () => {
           alignItems: "center",
         }}
       >
-        <h1>PH University</h1>
+        <h1>UMS</h1>
       </div>
       <Menu
         theme="dark"

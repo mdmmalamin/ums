@@ -16,7 +16,7 @@ const Login = () => {
 
   const onSubmit = async (data: FieldValues) => {
     console.log(data);
-    const toastId = toast.loading("Logging in");
+    const toastId = toast.loading("Logging...");
 
     try {
       const userInfo = {
@@ -29,7 +29,7 @@ const Login = () => {
 
       dispatch(setUser({ user: user, token: res.data.accessToken }));
 
-      toast.success("Logging In", { id: toastId, duration: 2000 });
+      toast.success("Logged In", { id: toastId, duration: 2000 });
 
       if (user.role === "superAdmin") {
         return navigate(`/admin/dashboard`);
