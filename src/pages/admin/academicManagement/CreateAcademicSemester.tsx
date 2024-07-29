@@ -1,5 +1,5 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import PHForm from "../../../components/form/PHForm";
+import UMForm from "../../../components/form/UMForm";
 import { Button, Col, Flex } from "antd";
 import UMSelect from "../../../components/form/UMSelect";
 import { semesterOptions } from "../../../constants/semester";
@@ -59,7 +59,7 @@ const CreateAcademicSemester = () => {
   return (
     <Flex justify="center" align="center">
       <Col span={6}>
-        <PHForm
+        <UMForm
           onSubmit={onSubmit}
           resolver={zodResolver(academicSemesterSchema)}
         >
@@ -72,7 +72,7 @@ const CreateAcademicSemester = () => {
           />
           <UMSelect label="End Month" name="endMonth" options={monthOptions} />
           <Button htmlType="submit">Submit</Button>
-        </PHForm>
+        </UMForm>
       </Col>
     </Flex>
   );

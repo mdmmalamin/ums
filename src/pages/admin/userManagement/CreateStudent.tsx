@@ -1,9 +1,9 @@
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import PHForm from "../../../components/form/PHForm";
-import PHInput from "../../../components/form/PHInput";
+import UMForm from "../../../components/form/UMForm";
+import UMInput from "../../../components/form/UMInput";
 import { Button, Col, Divider, Row } from "antd";
 import UMSelect from "../../../components/form/UMSelect";
-import { bloodOptions, genderOptions } from "../../../constants/userInfo";
+import { bloodOptions, genderOptions } from "../../../constants/global";
 
 const studentDummyData = {
   password: "student123",
@@ -57,24 +57,24 @@ const CreateStudent = () => {
   return (
     <Row>
       <Col span={24}>
-        <PHForm onSubmit={onSubmit}>
+        <UMForm onSubmit={onSubmit}>
           <Divider>Personal Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="text" name="name.firstName" label="First Name" />
+              <UMInput type="text" name="name.firstName" label="First Name" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="text" name="name.middleName" label="Middle Name" />
+              <UMInput type="text" name="name.middleName" label="Middle Name" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="text" name="name.lastName" label="Last Name" />
+              <UMInput type="text" name="name.lastName" label="Last Name" />
             </Col>
 
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <UMSelect name="gender" options={genderOptions} label="Gender" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="text" name="dateOfBirth" label="Date of Birth" />
+              <UMInput type="text" name="dateOfBirth" label="Date of Birth" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <UMSelect
@@ -88,27 +88,27 @@ const CreateStudent = () => {
           <Divider>Contact Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="text" name="email" label="Email" />
+              <UMInput type="text" name="email" label="Email" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput type="tel" name="contactNo" label="Contact No" />
+              <UMInput type="tel" name="contactNo" label="Contact No" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="tel"
                 name="emergencyContactNo"
                 label="Emergency ContactNo"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="presentAddress"
                 label="Present Address"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="permanentAddress"
                 label="Permanent Address"
@@ -119,21 +119,21 @@ const CreateStudent = () => {
           <Divider>Guardian Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="guardian.fatherName"
                 label="Father Full Name"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="guardian.fatherOccupation"
                 label="Father Occupation"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="guardian.fatherContactNo"
                 label="Father Contact No"
@@ -141,21 +141,21 @@ const CreateStudent = () => {
             </Col>
 
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="guardian.motherName"
                 label="Mother Full Name"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="guardian.motherOccupation"
                 label="Mother Occupation"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="guardian.motherContactNo"
                 label="Mother Contact No"
@@ -166,28 +166,28 @@ const CreateStudent = () => {
           <Divider>Local Guardian Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="localGuardian.name"
                 label="Full Name"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="localGuardian.occupation"
                 label="Occupation"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="tel"
                 name="localGuardian.contactNo"
                 label="Contact No"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="localGuardian.address"
                 label="Address"
@@ -198,14 +198,14 @@ const CreateStudent = () => {
           <Divider>Academic Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="admissionSemester"
                 label="Admission Semester"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <PHInput
+              <UMInput
                 type="text"
                 name="academicDepartment"
                 label="Academic Department"
@@ -214,7 +214,7 @@ const CreateStudent = () => {
           </Row>
 
           <Button htmlType="submit">Submit</Button>
-        </PHForm>
+        </UMForm>
       </Col>
     </Row>
   );

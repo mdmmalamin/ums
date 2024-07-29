@@ -17,7 +17,7 @@ type TFormProps = {
   children: ReactNode;
 } & TFormConfig;
 
-const PHForm = ({
+const UMForm = ({
   onSubmit,
   children,
   defaultValues,
@@ -44,4 +44,4 @@ const PHForm = ({
   );
 };
 
-export default PHForm;
+export default UMForm;

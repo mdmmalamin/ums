@@ -9,7 +9,7 @@ type TInputProps = {
   label?: string;
 };
 
-const PHInput = ({
+const UMInput = ({
   type,
   name,
   placeholder,
@@ -38,4 +38,4 @@ const PHInput = ({
   );
 };
 
-export default PHInput;
+export default UMInput;

@@ -6,8 +6,8 @@ import { setUser, TUser } from "../redux/features/auth/authSlice";
 import { verifyToken } from "../utils/verifyToken";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import PHForm from "../components/form/PHForm";
-import PHInput from "../components/form/PHInput";
+import UMForm from "../components/form/UMForm";
+import UMInput from "../components/form/UMInput";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,10 +47,10 @@ const Login = () => {
 
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
-      <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
-        <PHInput type="text" name="id" placeholder="ID" label="ID: " />
+      <UMForm onSubmit={onSubmit} defaultValues={defaultValues}>
+        <UMInput type="text" name="id" placeholder="ID" label="ID: " />
 
-        <PHInput
+        <UMInput
           type="text"
           name="password"
           placeholder="Password"
@@ -58,7 +58,7 @@ const Login = () => {
         />
 
         <Button htmlType="submit">Login</Button>
-      </PHForm>
+      </UMForm>
     </Row>
   );
 };
