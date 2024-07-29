@@ -1,9 +1,10 @@
-import { Table, TableColumnsType, TableProps } from "antd";
+import { Button, Table, TableColumnsType, TableProps } from "antd";
 import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { TAcademicSemester, TQueryParams } from "../../../types";
 import { useState } from "react";
 import { yearOptions } from "../../../utils/yearOptions";
 import { monthOptions } from "../../../constants/global";
+import { FormOutlined } from "@ant-design/icons";
 
 export type TTableData = Pick<
   TAcademicSemester,
@@ -72,6 +73,15 @@ const AcademicSemester = () => {
       dataIndex: "endMonth",
       // filters: monthQueryFilters,
     },
+    {
+      title: "Action",
+      key: "x",
+      render: ()=> {
+        return(
+          <Button><FormOutlined /></Button>
+        )
+      }
+    }
   ];
 
   const onChange: TableProps<TTableData>["onChange"] = (
