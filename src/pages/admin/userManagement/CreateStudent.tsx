@@ -4,52 +4,71 @@ import UMInput from "../../../components/form/UMInput";
 import { Button, Col, Divider, Row } from "antd";
 import UMSelect from "../../../components/form/UMSelect";
 import { bloodOptions, genderOptions } from "../../../constants/global";
+import UMDatePicker from "../../../components/form/UMDatePicker";
+import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
 
-const studentDummyData = {
-  password: "student123",
-  student: {
-    name: {
-      firstName: "I am ",
-      middleName: "Student",
-      lastName: "Number 1",
-    },
-    gender: "male",
-    dateOfBirth: "1990-01-01",
-    bloodGroup: "A+",
-
-    email: "student2@gmail.com",
-    contactNo: "1235678",
-    emergencyContactNo: "987-654-3210",
-    presentAddress: "123 Main St, Cityville",
-    permanentAddress: "456 Oak St, Townsville",
-
-    guardian: {
-      fatherName: "James Doe",
-      fatherOccupation: "Engineer",
-      fatherContactNo: "111-222-3333",
-      motherName: "Mary Doe",
-      motherOccupation: "Teacher",
-      motherContactNo: "444-555-6666",
-    },
-
-    localGuardian: {
-      name: "Alice Johnson",
-      occupation: "Doctor",
-      contactNo: "777-888-9999",
-      address: "789 Pine St, Villageton",
-    },
-
-    admissionSemester: "65b0104110b74fcbd7a25d92",
-    academicDepartment: "65b00fb010b74fcbd7a25d8e",
+//! This is only for development, should be remove
+const studentDefaultValue = {
+  name: {
+    firstName: "Md",
+    middleName: "Al",
+    lastName: "Amin",
   },
+  gender: "male",
+  // dateOfBirth: "1990-01-01",
+  bloodGroup: "A+",
+
+  email: "student2@gmail.com",
+  contactNo: "1235678",
+  emergencyContactNo: "987-654-3210",
+  presentAddress: "123 Main St, Cityville",
+  permanentAddress: "456 Oak St, Townsville",
+
+  guardian: {
+    fatherName: "James Doe",
+    fatherOccupation: "Engineer",
+    fatherContactNo: "111-222-3333",
+    motherName: "Mary Doe",
+    motherOccupation: "Teacher",
+    motherContactNo: "444-555-6666",
+  },
+
+  localGuardian: {
+    name: "Alice Johnson",
+    occupation: "Doctor",
+    contactNo: "777-888-9999",
+    address: "789 Pine St, Villageton",
+  },
+
+  admissionSemester: "65b0104110b74fcbd7a25d92",
+  academicDepartment: "65b00fb010b74fcbd7a25d8e",
 };
 
 const CreateStudent = () => {
+  const [addStudent, { data, error }] = useAddStudentMutation();
+  console.log("addStudent: ", { data, error });
+
+  const { data: sData, isLoading: sIsLoading } =
+    useGetAllSemestersQuery(undefined); //* (undefined, { skip: false }) it used, if need to depended another api call
+
+  const semesterOptions = sData?.data?.map((item) => ({
+    value: item._id,
+    label: `${item.name} ${item.year}`,
+  }));
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
 
-    // const formData = new FormData();
-    // formData.append("data", JSON.stringify(data));
+    const studentData = {
+      password: data.contactNo,
+      student: data,
+    };
+
+    const formData = new FormData();
+    formData.append("data", JSON.stringify(studentData));
+
+    addStudent(formData);
 
     // console.log(Object.fromEntries(formData)); //! This is form development, Just for checking
   };
@@ -57,7 +76,7 @@ const CreateStudent = () => {
   return (
     <Row>
       <Col span={24}>
-        <UMForm onSubmit={onSubmit}>
+        <UMForm onSubmit={onSubmit} defaultValues={studentDefaultValue}>
           <Divider>Personal Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
@@ -74,7 +93,7 @@ const CreateStudent = () => {
               <UMSelect name="gender" options={genderOptions} label="Gender" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <UMInput type="text" name="dateOfBirth" label="Date of Birth" />
+              <UMDatePicker name="dateOfBirth" label="Date of Birth" />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <UMSelect
@@ -198,16 +217,18 @@ const CreateStudent = () => {
           <Divider>Academic Info.</Divider>
           <Row gutter={8}>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <UMInput
-                type="text"
+              <UMSelect
                 name="admissionSemester"
+                disabled={sIsLoading}
+                options={semesterOptions}
                 label="Admission Semester"
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <UMInput
-                type="text"
+              <UMSelect
                 name="academicDepartment"
+                disabled={sIsLoading}
+                options={[{ value: "test", label: "test" }]}
                 label="Academic Department"
               />
             </Col>
