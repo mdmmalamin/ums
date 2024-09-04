@@ -7,6 +7,7 @@ type TInputProps = {
   placeholder?: string;
   defaultValue?: string;
   label?: string;
+  disabled?: boolean;
 };
 
 const UMInput = ({
@@ -15,6 +16,7 @@ const UMInput = ({
   placeholder,
   defaultValue,
   label,
+  disabled,
 }: TInputProps) => {
   return (
     <div style={{ marginBottom: "1rem" }}>
@@ -30,6 +32,7 @@ const UMInput = ({
               type={type}
               id={name}
               size="large"
+              disabled={disabled}
             />
           </Form.Item>
         )}
