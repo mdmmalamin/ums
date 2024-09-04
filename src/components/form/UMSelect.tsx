@@ -6,9 +6,10 @@ type TSelectProps = {
   label?: string;
   options: { value: string; label: string; disabled?: true }[] | undefined;
   disabled?: boolean;
+  mode?: "multiple" | "tags" | undefined;
 };
 
-const UMSelect = ({ label, name, options, disabled }: TSelectProps) => {
+const UMSelect = ({ label, name, options, disabled, mode }: TSelectProps) => {
   return (
     <Controller
       name={name}
@@ -16,6 +17,7 @@ const UMSelect = ({ label, name, options, disabled }: TSelectProps) => {
         <Form.Item label={label}>
           <Select
             {...field}
+            mode={mode}
             style={{ width: "100%" }}
             options={options}
             size="large"

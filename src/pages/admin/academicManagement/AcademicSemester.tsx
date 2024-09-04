@@ -1,5 +1,5 @@
 import { Button, Table, TableColumnsType, TableProps } from "antd";
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import { useGetAllAcademicSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
 import { TAcademicSemester, TQueryParams } from "../../../types";
 import { useState } from "react";
 import { yearOptions } from "../../../utils/yearOptions";
@@ -17,7 +17,7 @@ const AcademicSemester = () => {
     data: semesterData,
     isFetching,
     isLoading,
-  } = useGetAllSemestersQuery(params);
+  } = useGetAllAcademicSemestersQuery(params);
 
   const tableData = semesterData?.data?.map(
     ({ _id, name, year, startMonth, endMonth }) => ({
@@ -42,6 +42,7 @@ const AcademicSemester = () => {
   const columns: TableColumnsType<TTableData> = [
     {
       title: "Name",
+      key: "name",
       dataIndex: "name",
       filters: [
         {
@@ -60,28 +61,32 @@ const AcademicSemester = () => {
     },
     {
       title: "Year",
+      key: "year",
       dataIndex: "year",
       filters: yearQueryFilters,
     },
     {
       title: "Start Month",
+      key: "startMonth",
       dataIndex: "startMonth",
       filters: monthQueryFilters,
     },
     {
       title: "End Month",
+      key: "endMonth",
       dataIndex: "endMonth",
-      // filters: monthQueryFilters,
     },
     {
       title: "Action",
       key: "x",
-      render: ()=> {
-        return(
-          <Button><FormOutlined /></Button>
-        )
-      }
-    }
+      render: () => {
+        return (
+          <Button>
+            <FormOutlined />
+          </Button>
+        );
+      },
+    },
   ];
 
   const onChange: TableProps<TTableData>["onChange"] = (

@@ -5,8 +5,12 @@ import { Button, Col, Divider, Row } from "antd";
 import UMSelect from "../../../components/form/UMSelect";
 import { bloodOptions, genderOptions } from "../../../constants/global";
 import UMDatePicker from "../../../components/form/UMDatePicker";
-import { useGetAllSemestersQuery } from "../../../redux/features/admin/academicManagement.api";
+import {
+  useGetAllAcademicDepartmentQuery,
+  useGetAllAcademicSemestersQuery,
+} from "../../../redux/features/admin/academicManagement.api";
 import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
+import UMFile from "../../../components/form/UMFile";
 
 //! This is only for development, should be remove
 const studentDefaultValue = {
@@ -41,36 +45,47 @@ const studentDefaultValue = {
     address: "789 Pine St, Villageton",
   },
 
-  admissionSemester: "65b0104110b74fcbd7a25d92",
-  academicDepartment: "65b00fb010b74fcbd7a25d8e",
+  // admissionSemester: "65b0104110b74fcbd7a25d92",
+  // academicDepartment: "65b00fb010b74fcbd7a25d8e",
 };
 
 const CreateStudent = () => {
   const [addStudent, { data, error }] = useAddStudentMutation();
   console.log("addStudent: ", { data, error });
 
-  const { data: sData, isLoading: sIsLoading } =
-    useGetAllSemestersQuery(undefined); //* (undefined, { skip: false }) it used, if need to depended another api call
+  const { data: semesterData, isLoading: sIsLoading } =
+    useGetAllAcademicSemestersQuery(undefined); //* (undefined, { skip: false }) it used, if need to depended another api call
+  const {
+    data: departmentData,
+    isLoading,
+    isFetching,
+  } = useGetAllAcademicDepartmentQuery(undefined);
 
-  const semesterOptions = sData?.data?.map((item) => ({
+  const semesterOptions = semesterData?.data?.map((item) => ({
     value: item._id,
     label: `${item.name} ${item.year}`,
   }));
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const departmentOptions = departmentData?.data?.map((item) => ({
+    value: item._id,
+    label: item.name,
+  }));
+
+  const onSubmit: SubmitHandler<FieldValues> =async (data) => {
     console.log(data);
 
     const studentData = {
-      password: data.contactNo,
+      // password: data.contactNo,
       student: data,
     };
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
+    formData.append("file", data.image);
 
-    addStudent(formData);
+    await addStudent(formData);
 
-    // console.log(Object.fromEntries(formData)); //! This is form development, Just for checking
+    console.log(Object.fromEntries(formData)); //! This is form development, Just for checking
   };
 
   return (
@@ -101,6 +116,9 @@ const CreateStudent = () => {
                 options={bloodOptions}
                 label="Blood Group"
               />
+            </Col>
+            <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
+              <UMFile name="image" label="Picture" />
             </Col>
           </Row>
 
@@ -227,8 +245,8 @@ const CreateStudent = () => {
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
               <UMSelect
                 name="academicDepartment"
-                disabled={sIsLoading}
-                options={[{ value: "test", label: "test" }]}
+                disabled={isFetching || isLoading}
+                options={departmentOptions}
                 label="Academic Department"
               />
             </Col>

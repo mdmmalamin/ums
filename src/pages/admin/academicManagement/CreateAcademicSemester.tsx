@@ -11,13 +11,6 @@ import { toast } from "sonner";
 import { TResponse } from "../../../types/global.type";
 import { yearOptions } from "../../../utils/yearOptions";
 
-// const currentYear = new Date().getFullYear();
-// const yearOptions = Array.from(Array(5).keys()).map((_) => ({
-//   value: String(_ + currentYear),
-//   label: String(_ + currentYear),
-// }));
-// // console.log(yearOptions, currentYear);
-
 const CreateAcademicSemester = () => {
   const [CreateAcademicSemester] = useCreateAcademicSemesterMutation();
 
