@@ -75,17 +75,17 @@ const CreateStudent = () => {
     console.log(data);
 
     const studentData = {
-      // password: data.contactNo,
+      password: data.contactNo,
       student: data,
     };
 
     const formData = new FormData();
     formData.append("data", JSON.stringify(studentData));
-    formData.append("file", data.image);
+    formData.append("file", data.profileImg);
 
     await addStudent(formData);
 
-    console.log(Object.fromEntries(formData)); //! This is form development, Just for checking
+    // console.log(Object.fromEntries(formData)); //! This is form development, Just for checking
   };
 
   return (
@@ -118,7 +118,7 @@ const CreateStudent = () => {
               />
             </Col>
             <Col span={24} md={{ span: 12 }} lg={{ span: 8 }}>
-              <UMFile name="image" label="Picture" />
+              <UMFile name="profileImg" label="Picture" />
             </Col>
           </Row>
 

@@ -41,13 +41,20 @@ const Login = () => {
   };
 
   const defaultValues = {
-    id: "0001",
-    password: "admin12345",
+    admin: {
+      id: "0001",
+      password: "admin12345",
+    },
+    faculty: {},
+    student: {
+      id: "2026010001",
+      password: "12342345",
+    },
   };
 
   return (
     <Row justify="center" align="middle" style={{ height: "100vh" }}>
-      <UMForm onSubmit={onSubmit} defaultValues={defaultValues}>
+      <UMForm onSubmit={onSubmit} defaultValues={defaultValues.student}>
         <UMInput type="text" name="id" placeholder="ID" label="ID: " />
 
         <UMInput

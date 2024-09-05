@@ -4,6 +4,7 @@ import { adminPaths } from "../../routes/admin.routes";
 import { facultyPaths } from "../../routes/faculty.routes";
 import { useAppSelector } from "../../redux/hooks";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { studentPaths } from "../../routes/student.routes";
 
 const { Sider } = Layout;
 
@@ -33,7 +34,7 @@ const Sidebar = () => {
 
       break;
     case userRole.STUDENT:
-      sidebarItems = sidebarItemsGenerator(adminPaths, userRole.STUDENT);
+      sidebarItems = sidebarItemsGenerator(studentPaths, userRole.STUDENT);
 
       break;
     default:
