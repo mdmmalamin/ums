@@ -35,6 +35,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
   result?.error?.status === 404 && toast.error(result?.error?.data?.message);
 
+  result?.error?.status === 403 && toast.error(result?.error?.data?.message);
+
   if (result?.error?.status === 401) {
     //* Send Refresh Token
     console.log("Sending refresh token");
@@ -68,6 +70,7 @@ export const baseApi = createApi({
     "academicDepartment",
     "semester",
     "courses",
+    "offeredCourse",
   ],
   endpoints: () => ({}),
 });
